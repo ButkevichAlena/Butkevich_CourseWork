@@ -8,11 +8,6 @@ namespace Reservation_of_the_accomodations
 {
     public class Hotel_room
     {
-<<<<<<< HEAD
-
-
-=======
->>>>>>> origin/master
         public List<Client> clients = new List<Client>();
 
         private string name;
