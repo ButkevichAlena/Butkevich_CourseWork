@@ -8,11 +8,6 @@ namespace Reservation_of_the_accomodations
 {
     public class Hotel_room
     {
-        static void TakenDate()
-        {
-            throw new System.Exception(" This date is taken already. Input another date or name of hotel_room, please!!!");
-        }
-
         public List<Client> clients = new List<Client>();
 
         private string name;
