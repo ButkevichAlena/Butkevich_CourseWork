@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Reservation_of_the_accomodations
 {
+    [Serializable]
     public class Hotel_room
     {
         public List<Client> clients = new List<Client>();
@@ -25,11 +26,8 @@ namespace Reservation_of_the_accomodations
         {
             StringBuilder bufer = new StringBuilder();
             StringBuilder sbufer = new StringBuilder();
-            bufer.Append(Name + " " + Category + " " + Status + " " + sbufer.ToString() +'\n');
-            foreach (Client client in clients)
-            {
-               sbufer.Append(client.ToString());
-            }
+            bufer.Append(Name + " " + Category + '\n');
+
             return bufer.ToString();
         }
 
@@ -38,14 +36,12 @@ namespace Reservation_of_the_accomodations
             bool IsFree = true;
             foreach (Client client in this.clients)
             {
-                if (client.StartDate <= date1 || client.EndDate >= date2)
+                if ((date1 >= client.StartDate && date1 <= client.EndDate) || (date2 >= client.StartDate && date2 <= client.EndDate))
                 {
-                    IsFree = false; 
+                    IsFree = false; break;
                 }
             }
             return IsFree;
         }
-
-
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Reservation_of_the_accomodations
 {
+    [Serializable]
     public class All_hotel_rooms
     {
         static void TakenDate()
@@ -82,22 +83,23 @@ namespace Reservation_of_the_accomodations
         }
 
 
-        public All_hotel_rooms freeRooms(string date)
+        public List<String> freeRooms(string date)
         {
-            All_hotel_rooms ahr = new All_hotel_rooms();
+            List<String> freeRoom = new List<String>();
             foreach (Hotel_room room in this.list)
             {
                 foreach (Client client in room.clients)
-                if (!(client.StartDate <= DateTime.Parse(date) && DateTime.Parse(date) <= client.EndDate))
+                    if (DateTime.Parse(date) >= client.StartDate && DateTime.Parse(date) <= client.EndDate)
                 {
-                    room.Status = "free";  
+                    room.Status = "taken"; break; 
                 }
+                    else room.Status = "free";
             }
             foreach (Hotel_room room in this.list)
             {
-               if (room.Status == "free") ahr.list.Add(room);
+               if (room.Status == "free") freeRoom.Add(room.Name + " " + room.Category);
             }
-            return ahr;
+            return freeRoom;
         }
 
         public All_hotel_rooms todayFreeRooms()
@@ -106,10 +108,11 @@ namespace Reservation_of_the_accomodations
             foreach (Hotel_room room in this.list)
             {
                 foreach (Client client in room.clients)
-                if (!(client.StartDate <= System.DateTime.Today || client.EndDate >= System.DateTime.Today))
-                {
-                     room.Status = "taken";
-                }
+                    if (client.StartDate <= System.DateTime.Today && client.EndDate >= System.DateTime.Today)
+                    {
+                        room.Status = "taken"; break;
+                    }
+                    else room.Status = "free";
                 ahr.list.Add(room);
             }
             return ahr;

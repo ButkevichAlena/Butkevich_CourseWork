@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Reservation_of_the_accomodations
 {
+    [Serializable]
     public class Client
     {
         private string name;
