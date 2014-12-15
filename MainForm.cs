@@ -24,16 +24,6 @@ namespace Reservation_of_the_accomodations
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
- 
-        }
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
-        }
-
         private void btHotelRooms_Click(object sender, EventArgs e)
         {
             form.Show();
