@@ -53,20 +53,18 @@ namespace Reservation_of_the_accomodations
                    List<Hotel_room> list = (List<Hotel_room>)formatter.Deserialize(fs);
                    ahr.list = list;
                    ahr.deleteOldReservations();
+                   listBox1.Items.Clear();
+                  foreach (Hotel_room room in ahr.todayFreeRooms().list)
+                    {
+                    listBox1.Items.Add(room.ToString() + "   " + room.Status);
+                    }
                 }
 
             }
             else
             {
                 ahr.create(reader.Read(@"C:\Users\NotePad.by\Documents\Hotel rooms.txt"));
-            }
-
-            listBox1.Items.Clear();
-
-            foreach (Hotel_room room in ahr.todayFreeRooms().list)
-            {
-                listBox1.Items.Add(room.ToString() + "   " + room.Status);
-            }
+            }           
         }
 
         private void btMakeReservation_Click(object sender, EventArgs e)
