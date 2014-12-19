@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Reservation_of_the_accomodations
 {
@@ -18,22 +19,27 @@ namespace Reservation_of_the_accomodations
             InitializeComponent();
         }
 
+        Reservation form = new Reservation();
         All_hotel_rooms ahr = new All_hotel_rooms();
         Reader reader = new Reader();
 
         private void List_of_hotel_rooms_Load(object sender, EventArgs e)
         {
-            ahr.create(reader.Read(@"C:\Users\NotePad.by\Documents\Hotel rooms.txt"));
-            foreach (Hotel_room room in ahr.list)
-            {
-                lvListOfHotelRooms.Items.Add(room.ToString());
-            }
+            string text = File.ReadAllText(@"C:\Users\NotePad.by\Documents\HotelRooms.txt");
+            rbInformationAboutRooms.Text = text;
+           
         }
 
         private void List_of_hotel_rooms_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
             Hide();
+        }
+
+        private void btGoToReservation_Click(object sender, EventArgs e)
+        {
+            Close();
+            form.Show();
         }
     }
 }
