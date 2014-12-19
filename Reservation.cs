@@ -44,29 +44,24 @@ namespace Reservation_of_the_accomodations
 
         private void Reservation_Load(object sender, EventArgs e)
         {
+
             BinaryFormatter formatter = new BinaryFormatter();
             string curFile = @"C:\Users\NotePad.by\Documents\serialise.dat";
             if (File.Exists(curFile))
             {
                 using (FileStream fs = new FileStream(@"C:\Users\NotePad.by\Documents\serialise.dat", FileMode.Open))
                 {
-                   List<Hotel_room> list = (List<Hotel_room>)formatter.Deserialize(fs);
-                   ahr.list = list;
-                   ahr.deleteOldReservations();
+                    List<Hotel_room> list = (List<Hotel_room>)formatter.Deserialize(fs);
+                    ahr.list = list;
+                    ahr.deleteOldReservations();
+                  
+                    dataGridView1.DataSource = ahr.todayFreeRooms().list;
                 }
-
             }
-            else
+             else
             {
                 ahr.create(reader.Read(@"C:\Users\NotePad.by\Documents\Hotel rooms.txt"));
-            }
-
-            listBox1.Items.Clear();
-
-            foreach (Hotel_room room in ahr.todayFreeRooms().list)
-            {
-                listBox1.Items.Add(room.ToString() + "   " + room.Status);
-            }
+            }  
         }
 
         private void btMakeReservation_Click(object sender, EventArgs e)
@@ -80,11 +75,7 @@ namespace Reservation_of_the_accomodations
 
                 if (!ahr.compare(tbNameOfRoom.Text)) InvalidName();
                 else { ahr.add(tbNameOfRoom.Text, tbNameOfClient.Text, DateTime.Parse(tbBeginOfReservation.Text), DateTime.Parse(tbEndOfReservation.Text)); }
-                listBox1.Items.Clear();
-                foreach (Hotel_room room in ahr.todayFreeRooms().list)
-                {
-                    listBox1.Items.Add(room.ToString() + "   " + room.Status);
-                }
+                dataGridView1.DataSource = ahr.todayFreeRooms().list;
                 tbBeginOfReservation.Clear(); tbEndOfReservation.Clear(); tbNameOfRoom.Clear(); tbNameOfClient.Clear();
             }
             catch (FormatException ex)
